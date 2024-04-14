@@ -8,7 +8,7 @@ public class ToggleTimer implements Runnable {
 
     public ToggleTimer(final ToggleStorage storage) {
         this.storage = storage;
-        Platform.getPlatform().asyncTaskTimer(this, 0, 0);
+        Platform.getPlatform().asyncTaskTimer(this, 20, 20);
     }
 
     public final ToggleStorage getStorage() {

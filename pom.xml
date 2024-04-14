@@ -48,7 +48,8 @@
                         <filter>
                             <artifact>*:*</artifact>
                             <excludes>
-                                <exclude>com/syntaxphoenix/spigot/smoothtimber/annotation/*.class</exclude>
+                                <exclude>
+                                    com/syntaxphoenix/spigot/smoothtimber/annotation/*.class</exclude>
                             </excludes>
                         </filter>
                     </filters>
@@ -68,6 +69,9 @@
                 <configuration>
                     <source>11</source>
                     <target>11</target>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
                     <annotationProcessors>
                         <annotationProcessor>
                             com.syntaxphoenix.spigot.smoothtimber.annotation.MCVersionEnumGenerator</annotationProcessor>
