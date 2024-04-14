@@ -38,7 +38,7 @@ public final class BlockyLogResolver_v2_x extends LocationResolver {
                     return resolved;
                 }
                 final Location location = new Location(world, cx, y, cz);
-                if (change.isWoodBlock(Locator.getBlock(location))) {
+                if (change.isWoodBlock(Locator.getBlockState(location))) {
                     if (current.contains(location) || storage.getData(cx, y, cz).getPlayerId() != null) {
                         continue;
                     }

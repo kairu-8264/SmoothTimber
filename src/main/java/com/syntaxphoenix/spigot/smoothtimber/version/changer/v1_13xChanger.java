@@ -2,6 +2,7 @@ package com.syntaxphoenix.spigot.smoothtimber.version.changer;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -48,7 +49,7 @@ public final class v1_13xChanger implements VersionChanger {
     }
 
     @Override
-    public byte getData(final Block block) {
+    public byte getData(final BlockState block) {
         return 0;
     }
 
@@ -90,7 +91,7 @@ public final class v1_13xChanger implements VersionChanger {
     }
 
     @Override
-    public boolean isWoodBlockImpl(final Block block) {
+    public boolean isWoodBlockImpl(final BlockState block) {
         final Material material = block.getBlockData().getMaterial();
 
         if (CutterConfig.ENABLE_EXCLUSION && CutterConfig.EXCLUDED_MATERIALS.contains(material)) {

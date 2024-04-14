@@ -2,6 +2,7 @@ package com.syntaxphoenix.spigot.smoothtimber.version.changer;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
@@ -39,7 +40,7 @@ public final class NOPChanger implements VersionChanger {
     }
 
     @Override
-    public boolean isWoodBlockImpl(final Block block) {
+    public boolean isWoodBlockImpl(final BlockState block) {
         return false;
     }
 
@@ -99,7 +100,7 @@ public final class NOPChanger implements VersionChanger {
     }
 
     @Override
-    public byte getData(final Block block) {
+    public byte getData(final BlockState block) {
         return 0;
     }
 

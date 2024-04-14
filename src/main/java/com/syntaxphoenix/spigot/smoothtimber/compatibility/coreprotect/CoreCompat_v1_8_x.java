@@ -1,7 +1,7 @@
 package com.syntaxphoenix.spigot.smoothtimber.compatibility.coreprotect;
 
 import org.bukkit.Location;
-import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.plugin.Plugin;
 
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
@@ -20,7 +20,7 @@ public class CoreCompat_v1_8_x implements CoreCompat {
 
     @SuppressWarnings("deprecation")
     @Override
-    public void logRemoval(final String user, final Location location, final Block block) {
+    public void logRemoval(final String user, final Location location, final BlockState block) {
         api.logRemoval(user, location, block.getType(), changer.getData(block));
     }
 

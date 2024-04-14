@@ -1,7 +1,7 @@
 package com.syntaxphoenix.spigot.smoothtimber.compatibility.towny;
 
 import org.bukkit.Bukkit;
-import org.bukkit.block.Block;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 
@@ -9,6 +9,7 @@ import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.utils.PlayerCacheUtil;
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.CompatibilityAddon;
+import com.syntaxphoenix.spigot.smoothtimber.utilities.locate.Locator;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginPackage;
 
 public class Towny extends CompatibilityAddon {
@@ -27,8 +28,8 @@ public class Towny extends CompatibilityAddon {
         }
     }
 
-    public boolean canDestroy(final Player player, final Block block) {
-        return PlayerCacheUtil.getCachePermission(player, block.getLocation(), block.getType(), TownyPermission.ActionType.DESTROY);
+    public boolean canDestroy(final Player player, final Location location) {
+        return PlayerCacheUtil.getCachePermission(player, location, Locator.getBlockState(location).getType(), TownyPermission.ActionType.DESTROY);
     }
 
 }

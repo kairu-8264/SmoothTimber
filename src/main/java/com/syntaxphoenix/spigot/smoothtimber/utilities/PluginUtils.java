@@ -2,10 +2,6 @@ package com.syntaxphoenix.spigot.smoothtimber.utilities;
 
 import static com.syntaxphoenix.spigot.smoothtimber.SmoothTimber.COMMANDS;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
@@ -103,29 +99,6 @@ public class PluginUtils {
 
     private void registerTasks() {
         Platform.getPlatform().asyncTaskTimer(ConfigTimer.TIMER, 20, 60);
-    }
-
-    /*
-     * Task Util
-     */
-
-    public static <E> E getObjectFromMainThread(final Supplier<E> supply) {
-        return getObjectFromMainThread(supply, CutterConfig.GLOBAL_SYNC_TIME);
-    }
-
-    public static <E> E getObjectFromMainThread(final Supplier<E> supply, final long wait) {
-        final CountDownLatch latch = new CountDownLatch(1);
-        final StoredObject<E> value = new StoredObject<>();
-        Platform.getPlatform().syncTask(() -> {
-            value.setObject(supply.get());
-            latch.countDown();
-        });
-        try {
-            latch.await(wait, TimeUnit.MILLISECONDS);
-        } catch (final InterruptedException e) {
-            throw new IllegalStateException("Thread interrupted", e);
-        }
-        return value.getObject();
     }
 
     /*

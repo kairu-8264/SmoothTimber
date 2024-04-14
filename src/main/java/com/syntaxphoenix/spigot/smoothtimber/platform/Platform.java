@@ -32,6 +32,10 @@ public abstract class Platform {
     }
 
     protected abstract void internalShutdown();
+    
+    public boolean isRegional() {
+        return false;
+    }
 
     public void regionalTask(final Location location, final Runnable runnable) {
         runnable.run();

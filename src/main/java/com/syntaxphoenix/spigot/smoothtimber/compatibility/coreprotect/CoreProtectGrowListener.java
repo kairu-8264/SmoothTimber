@@ -24,9 +24,9 @@ public class CoreProtectGrowListener implements Listener {
         }
         final Player player = event.getPlayer();
         final String user = player != null ? "#st_" + player.getName() : "#tree";
-        Platform.getPlatform().regionalSyncTaskLater(event.getLocation(), () -> {
+        Platform.getPlatform().asyncTaskLater(() -> {
             for (final BlockState state : event.getBlocks()) {
-                compat.logRemoval(user, state.getLocation(), state.getWorld().getBlockAt(state.getLocation()));
+                compat.logRemoval(user, state.getLocation(), state);
             }
         }, 5);
     }

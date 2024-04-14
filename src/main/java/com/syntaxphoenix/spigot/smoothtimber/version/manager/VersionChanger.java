@@ -2,6 +2,7 @@ package com.syntaxphoenix.spigot.smoothtimber.version.manager;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
@@ -27,9 +28,9 @@ public interface VersionChanger {
 
     void setItemInPlayerHand(Player player, ItemStack stack);
 
-    boolean isWoodBlockImpl(Block block);
+    boolean isWoodBlockImpl(BlockState block);
 
-    default boolean isWoodBlock(final Block block) {
+    default boolean isWoodBlock(final BlockState block) {
         return block != null && isWoodBlockImpl(block);
     }
 
@@ -68,7 +69,7 @@ public interface VersionChanger {
 
     int getMaxDropCount(ItemStack tool);
 
-    byte getData(Block block);
+    byte getData(BlockState block);
 
     WoodType getWoodType(Material type, int id);
 

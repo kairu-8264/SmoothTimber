@@ -22,7 +22,7 @@ public class LogBlockChopListener implements Listener {
     public void onChopEvent(final AsyncPlayerChoppedTreeEvent event) {
         final Actor actor = new Actor("#sm_" + event.getPlayer().getName());
         for (final Location location : event.getBlockLocations()) {
-            logblockConsumer.queueBlockBreak(actor, location, Locator.getBlock(location).getBlockData());
+            logblockConsumer.queueBlockBreak(actor, location, Locator.getBlockState(location).getBlockData());
         }
     }
 

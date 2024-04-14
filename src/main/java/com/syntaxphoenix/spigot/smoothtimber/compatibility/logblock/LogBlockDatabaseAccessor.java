@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 
@@ -36,7 +36,7 @@ public class LogBlockDatabaseAccessor {
         this.logBlock = logBlock;
     }
 
-    public boolean isPlayerPlaced(final Block block) {
+    public boolean isPlayerPlaced(final BlockState block) {
         final String tableName = getTableName(block.getWorld());
         if (tableName == null) {
             return false;

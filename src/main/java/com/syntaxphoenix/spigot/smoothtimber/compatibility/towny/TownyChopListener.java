@@ -18,7 +18,7 @@ public class TownyChopListener implements Listener {
     @EventHandler
     public void onAsyncPlayerChopTree(final AsyncPlayerChopTreeEvent event) {
         for (final Location location : event.getBlockLocations()) {
-            if (!towny.canDestroy(event.getPlayer(), location.getBlock())) {
+            if (!towny.canDestroy(event.getPlayer(), location)) {
                 event.setCancelled(true);
                 event.setReason(DefaultReason.TOWNY);
                 break;

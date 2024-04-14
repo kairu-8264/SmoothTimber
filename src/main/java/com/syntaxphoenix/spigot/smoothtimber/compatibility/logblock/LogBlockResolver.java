@@ -11,7 +11,7 @@ import java.util.concurrent.TimeoutException;
 
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
@@ -50,7 +50,7 @@ public class LogBlockResolver extends LocationResolver {
         for (int cx = x - radius; cx <= x + radius; cx++) {
             for (int cz = z - radius; cz <= z + radius; cz++) {
                 final Location location = new Location(world, cx, y, cz);
-                final Block block = Locator.getBlock(location);
+                final BlockState block = Locator.getBlockState(location);
                 if (change.isWoodBlock(block)) {
                     if (current.contains(location)) {
                         continue;
@@ -85,16 +85,16 @@ public class LogBlockResolver extends LocationResolver {
 
     }
 
-    public boolean isPlayerPlaced(final Block block) {
+    public boolean isPlayerPlaced(final BlockState block) {
         if (block == null) {
             return false;
         }
-        return isPlayerPlaced(block.getLocation());
+        return databaseAccessor.isPlayerPlaced(block);
     }
 
     @Override
     public boolean isPlayerPlaced(final Location location) {
-        return databaseAccessor.isPlayerPlaced(location.getBlock());
+        return databaseAccessor.isPlayerPlaced(Locator.getBlockState(location));
     }
 
 }

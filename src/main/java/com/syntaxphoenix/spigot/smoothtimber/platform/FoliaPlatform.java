@@ -36,6 +36,11 @@ final class FoliaPlatform extends Platform {
         global.cancelTasks(plugin);
         async.cancelTasks(plugin);
     }
+    
+    @Override
+    public boolean isRegional() {
+        return true;
+    }
 
     @Override
     public void regionalTask(final Location location, final Runnable runnable) {

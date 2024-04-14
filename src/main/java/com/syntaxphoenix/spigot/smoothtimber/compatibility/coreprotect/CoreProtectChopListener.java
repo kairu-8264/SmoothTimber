@@ -18,7 +18,7 @@ public class CoreProtectChopListener implements Listener {
     @EventHandler
     public void onChopEvent(final AsyncPlayerChoppedTreeEvent event) {
         for (final Location location : event.getBlockLocations()) {
-            compat.logRemoval(event.getPlayer().getName(), location, Locator.getBlock(location));
+            compat.logRemoval(event.getPlayer().getName(), location, Locator.getBlockState(location));
         }
     }
 

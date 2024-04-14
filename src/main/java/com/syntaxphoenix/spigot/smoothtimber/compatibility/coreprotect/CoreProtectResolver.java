@@ -11,7 +11,7 @@ import java.util.concurrent.TimeoutException;
 
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.plugin.Plugin;
 
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
@@ -51,7 +51,7 @@ public class CoreProtectResolver extends LocationResolver {
         for (int cx = x - radius; cx <= x + radius; cx++) {
             for (int cz = z - radius; cz <= z + radius; cz++) {
                 final Location location = new Location(world, cx, y, cz);
-                final Block block = Locator.getBlock(location);
+                final BlockState block = Locator.getBlockState(location);
                 if (change.isWoodBlock(block)) {
                     if (current.contains(location)) {
                         continue;
@@ -89,8 +89,8 @@ public class CoreProtectResolver extends LocationResolver {
         return new ArrayList<>(found);
     }
 
-    public boolean isPlayerPlaced(final Block block) {
-        final List<String[]> list = api.blockLookup(block, 0);
+    public boolean isPlayerPlaced(final BlockState block) {
+        final List<String[]> list = api.blockLookup(block.getBlock(), 0);
         if (list == null || list.isEmpty()) {
             return false;
         }
@@ -105,7 +105,7 @@ public class CoreProtectResolver extends LocationResolver {
 
     @Override
     public boolean isPlayerPlaced(final Location location) {
-        final Block block = Locator.getBlock(location);
+        final BlockState block = Locator.getBlockState(location);
         if (block == null) {
             return false;
         }

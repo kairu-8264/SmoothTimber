@@ -1,7 +1,5 @@
 package com.syntaxphoenix.spigot.smoothtimber.utilities.locate;
 
-import static com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig.GLOBAL_DEBUG;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,41 +8,44 @@ import java.util.function.Function;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
+import com.syntaxphoenix.spigot.smoothtimber.platform.Platform;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.ListQueue;
-import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.limit.IntCounter;
+import com.syntaxphoenix.spigot.smoothtimber.utilities.task.ObjectTask;
 
 public abstract class Locator {
 
-    private static Function<Location, Block> BLOCK_DETECTOR;
+    private static Function<Location, BlockState> BLOCK_DETECTOR;
     private static LocationResolver LOCATION_RESOLVER = DefaultResolver.INSTANCE;
 
     public static void setSyncBlockDetection(final boolean sync) {
-        BLOCK_DETECTOR = sync ? location -> {
-            try {
-                return PluginUtils.getObjectFromMainThread(() -> location.getBlock());
-            } catch (final Exception ignore) {
-                if (GLOBAL_DEBUG) {
-                    PluginUtils.sendConsoleError("Something went wrong while detecting a block synchronously", ignore);
-                }
-                return null;
+        BLOCK_DETECTOR = sync ? Locator::syncDetector : Locator::asyncDetector;
+    }
+    
+    private static BlockState syncDetector(Location location) {
+        return retrieveBlockSync(location);
+    }
+    
+    private static BlockState asyncDetector(Location location) {
+        try {
+            if (Platform.getPlatform().isRegional()) {
+                ObjectTask<BlockState> task = new ObjectTask<>(() -> location.getBlock().getState());
+                Platform.getPlatform().regionalTask(location, task);
+                return Objects.requireNonNull(task.get());
             }
-        } : location -> {
-            try {
-                return Objects.requireNonNull(location.getBlock());
-            } catch (final Exception execute) {
-                try {
-                    return PluginUtils.getObjectFromMainThread(() -> location.getBlock());
-                } catch (final Exception ignore) {
-                    if (GLOBAL_DEBUG) {
-                        PluginUtils.sendConsoleError("Something went wrong while detecting a block synchronously", ignore);
-                    }
-                    return null;
-                }
-            }
-        };
+            return Objects.requireNonNull(location.getBlock().getState());
+        } catch (final RuntimeException ignore) {
+            return retrieveBlockSync(location);
+        }
+    }
+    
+    private static BlockState retrieveBlockSync(Location location) {
+        ObjectTask<BlockState> task = new ObjectTask<>(() -> location.getBlock().getState());
+        Platform.getPlatform().regionalSyncTask(location, task);
+        return task.get();
     }
 
     public static void setLocationResolver(final LocationResolver resolver) {
@@ -55,8 +56,18 @@ public abstract class Locator {
         return LOCATION_RESOLVER;
     }
 
-    public static Block getBlock(final Location location) {
+    public static BlockState getBlockState(final Location location) {
         return BLOCK_DETECTOR.apply(location);
+    }
+
+    public static BlockState getBlockState(final Block block) {
+        Platform platform = Platform.getPlatform();
+        if (platform.isRegional()) {
+            ObjectTask<BlockState> task = new ObjectTask<>(() -> block.getState());
+            Platform.getPlatform().regionalTask(block.getLocation(), task);
+            return task.get();
+        }
+        return block.getState();
     }
 
     public static void locateWood(final Location breakPoint, final List<Location> output, final int limit) {
