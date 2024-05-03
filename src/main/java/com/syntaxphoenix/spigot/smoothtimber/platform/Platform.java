@@ -49,6 +49,14 @@ public abstract class Platform {
         syncTaskLater(runnable, delay);
     }
 
+    public void regionalAsyncTask(final Location location, final Runnable runnable) {
+        asyncTask(runnable);
+    }
+
+    public void regionalAsyncTaskLater(final Location location, final Runnable runnable, final long delay) {
+        asyncTaskLater(runnable, delay);
+    }
+
     public abstract void syncTask(Runnable runnable);
 
     public abstract void syncTaskLater(Runnable runnable, long delay);

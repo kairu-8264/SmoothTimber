@@ -6,7 +6,7 @@ import org.bukkit.plugin.Plugin;
 
 import net.coreprotect.CoreProtectAPI;
 
-public class CoreCompat_v1_13_x implements CoreCompat {
+public class CoreCompat_v1_13_x implements ICoreCompat {
 
     private final CoreProtectAPI api;
 

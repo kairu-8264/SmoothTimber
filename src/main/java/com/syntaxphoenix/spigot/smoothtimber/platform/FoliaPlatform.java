@@ -56,6 +56,16 @@ final class FoliaPlatform extends Platform {
     public void regionalSyncTaskLater(final Location location, final Runnable runnable, final long delay) {
         region.runDelayed(plugin, location, t -> runnable.run(), delay);
     }
+    
+    @Override
+    public void regionalAsyncTask(Location location, Runnable runnable) {
+        region.run(plugin, location, t -> runnable.run());
+    }
+    
+    @Override
+    public void regionalAsyncTaskLater(Location location, Runnable runnable, long delay) {
+        region.runDelayed(plugin, location, t -> runnable.run(), delay);
+    }
 
     @Override
     public void syncTask(final Runnable runnable) {

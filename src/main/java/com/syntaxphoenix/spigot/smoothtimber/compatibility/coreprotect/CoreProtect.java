@@ -20,7 +20,7 @@ public class CoreProtect extends CompatibilityAddon {
     private LocationResolver resolver;
     private Listener chopListener;
     private Listener growListener;
-    private CoreCompat compat;
+    private ICoreCompat compat;
 
     private ExecutorService service;
 

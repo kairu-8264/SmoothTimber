@@ -11,9 +11,9 @@ import com.syntaxphoenix.spigot.smoothtimber.platform.Platform;
 
 public class CoreProtectGrowListener implements Listener {
 
-    private final CoreCompat compat;
+    private final ICoreCompat compat;
 
-    protected CoreProtectGrowListener(final CoreCompat compat) {
+    protected CoreProtectGrowListener(final ICoreCompat compat) {
         this.compat = compat;
     }
 
@@ -24,7 +24,7 @@ public class CoreProtectGrowListener implements Listener {
         }
         final Player player = event.getPlayer();
         final String user = player != null ? "#st_" + player.getName() : "#tree";
-        Platform.getPlatform().asyncTaskLater(() -> {
+        Platform.getPlatform().regionalAsyncTaskLater(event.getLocation(), () -> {
             for (final BlockState state : event.getBlocks()) {
                 compat.logRemoval(user, state.getLocation(), state);
             }

@@ -8,7 +8,7 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 
 import net.coreprotect.CoreProtectAPI;
 
-public class CoreCompat_v1_8_x implements CoreCompat {
+public class CoreCompat_v1_8_x implements ICoreCompat {
 
     private final CoreProtectAPI api;
     private final VersionChanger changer;
