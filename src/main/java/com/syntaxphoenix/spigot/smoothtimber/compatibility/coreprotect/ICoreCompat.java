@@ -5,6 +5,8 @@ import org.bukkit.block.BlockState;
 
 public interface ICoreCompat {
 
-    void logRemoval(String user, Location location, BlockState block);
+    void logRemoval(final String user, final Location location, final BlockState block);
+    
+    boolean isPlayerPlaced(final BlockState state);
 
 }

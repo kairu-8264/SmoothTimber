@@ -9,7 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.blockylog.BlockyLog;
-import com.syntaxphoenix.spigot.smoothtimber.compatibility.coreprotect.CoreProtect;
+import com.syntaxphoenix.spigot.smoothtimber.compatibility.coreprotect.CoreProtectAddon;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.factionsuuid.FactionsUUID;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.griefprevention.GriefPrevention;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.jobsreborn.JobsReborn;
@@ -32,7 +32,7 @@ public abstract class CompatibilityHandler {
     private static final Map<String, CompatAddon<?>> COMPAT = Collections.synchronizedMap(new HashMap<>());
 
     public static void registerDefaults() {
-        register("CoreProtect", CoreProtect.class);
+        register("CoreProtect", CoreProtectAddon.class);
         register("PlaceholderAPI", PlaceholderApi.class);
         register("GriefPrevention", GriefPrevention.class);
         register("WorldGuard", WorldGuard.class);

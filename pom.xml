@@ -21,7 +21,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -53,12 +53,33 @@
                             </excludes>
                         </filter>
                     </filters>
-                    <createDependencyReducedPom>false</createDependencyReducedPom>
                     <relocations>
                         <relocation>
                             <pattern>com.syntaxphoenix.syntaxapi</pattern>
                             <shadedPattern>
                                 com.syntaxphoenix.spigot.smoothtimber.shaded.syntaxapi</shadedPattern>
+                        </relocation>
+                        
+                        <!-- Compatibilities -->
+                        <relocation>
+                            <pattern>net.coreprotect.v1</pattern>
+                            <shadedPattern>net.coreprotect</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.coreprotect.v2</pattern>
+                            <shadedPattern>net.coreprotect</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>lands.v1</pattern>
+                            <shadedPattern>me.angeschossen.lands</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>lands.v2</pattern>
+                            <shadedPattern>me.angeschossen.lands</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>mcmmo.v1.com</pattern>
+                            <shadedPattern>com</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -94,7 +115,7 @@
                     </execution>
                     <execution>
                         <id>compile-annotationSource</id>
-                        <phase>compile</phase>
+                        <phase>process-sources</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
@@ -161,6 +182,11 @@
             <id>moss-repo</id>
             <url>https://ci.ender.zone/plugin/repository/everything/</url>
         </repository>
+        <!-- MCMMO Repo -->
+        <repository>
+            <id>neetgames</id>
+            <url>https://nexus.neetgames.com/repository/maven-releases/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -178,10 +204,18 @@
 
         <!-- Lands -->
         <dependency>
-            <groupId>com.github.angeschossen</groupId>
-            <artifactId>LandsAPI</artifactId>
-            <version>4.10.18</version>
-            <scope>provided</scope>
+            <groupId>lands</groupId>
+            <artifactId>lands1</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libraries/LandsAPI.repackaged.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>lands</groupId>
+            <artifactId>lands2</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libraries/lands-api-7.0.2.repackaged.jar</systemPath>
         </dependency>
 
         <!-- GriefPrevention -->
@@ -198,14 +232,14 @@
             <artifactId>CoreProtect6</artifactId>
             <version>1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libraries/CoreProtect-19.4.jar</systemPath>
+            <systemPath>${project.basedir}/libraries/CoreProtect-19.4.repackaged.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>net.coreprotect</groupId>
             <artifactId>CoreProtect5</artifactId>
             <version>1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libraries/CoreProtect-2.14.4.jar</systemPath>
+            <systemPath>${project.basedir}/libraries/CoreProtect-2.14.4.repackaged.jar</systemPath>
         </dependency>
 
         <!-- Residence -->
@@ -280,10 +314,16 @@
         <!-- mcMMO -->
         <dependency>
             <groupId>com.gmail.nossr50.mcMMO</groupId>
-            <artifactId>mcMMO</artifactId>
+            <artifactId>mcMMO-jar</artifactId>
             <version>2.1.175-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libraries/mcMMO.jar</systemPath>
+            <systemPath>${project.basedir}/libraries/mcMMO.repackaged.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.gmail.nossr50.mcMMO</groupId>
+            <artifactId>mcMMO</artifactId>
+            <version>2.2.004</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Towny -->

@@ -6,15 +6,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
-import com.gmail.nossr50.mcMMO;
-import com.gmail.nossr50.config.experience.ExperienceConfig;
-import com.gmail.nossr50.datatypes.player.McMMOPlayer;
-import com.gmail.nossr50.datatypes.skills.PrimarySkillType;
-import com.gmail.nossr50.util.player.UserManager;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerChopTreeEvent;
 import com.syntaxphoenix.spigot.smoothtimber.platform.Platform;
 
-public class McMmoChopListener implements Listener {
+import mcmmo.v1.com.gmail.nossr50.mcMMO;
+import mcmmo.v1.com.gmail.nossr50.config.experience.ExperienceConfig;
+import mcmmo.v1.com.gmail.nossr50.datatypes.player.McMMOPlayer;
+import mcmmo.v1.com.gmail.nossr50.datatypes.skills.PrimarySkillType;
+import mcmmo.v1.com.gmail.nossr50.util.player.UserManager;
+
+public class McMmoChopListener_v1 implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onChopEvent(final AsyncPlayerChopTreeEvent event) {

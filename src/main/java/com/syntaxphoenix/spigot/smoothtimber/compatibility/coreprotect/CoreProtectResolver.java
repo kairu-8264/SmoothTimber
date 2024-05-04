@@ -12,7 +12,6 @@ import java.util.concurrent.TimeoutException;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
-import org.bukkit.plugin.Plugin;
 
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
@@ -21,16 +20,14 @@ import com.syntaxphoenix.spigot.smoothtimber.utilities.locate.LocationResolver;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.locate.Locator;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 
-import net.coreprotect.CoreProtectAPI;
-
 public class CoreProtectResolver extends LocationResolver {
 
-    private final CoreProtectAPI api;
+    private final ICoreCompat compat;
     private final ExecutorService service;
 
-    protected CoreProtectResolver(final ExecutorService service, final Plugin plugin) {
+    protected CoreProtectResolver(final ExecutorService service, final ICoreCompat compat) {
         this.service = service;
-        api = ((net.coreprotect.CoreProtect) plugin).getAPI();
+        this.compat = compat;
     }
 
     @Override
@@ -57,7 +54,7 @@ public class CoreProtectResolver extends LocationResolver {
                         continue;
                     }
                     tasks.add(service.submit(() -> {
-                        if (isPlayerPlaced(block)) {
+                        if (compat.isPlayerPlaced(block)) {
                             return;
                         }
                         output.add(location);
@@ -89,27 +86,13 @@ public class CoreProtectResolver extends LocationResolver {
         return new ArrayList<>(found);
     }
 
-    public boolean isPlayerPlaced(final BlockState block) {
-        final List<String[]> list = api.blockLookup(block.getBlock(), 0);
-        if (list == null || list.isEmpty()) {
-            return false;
-        }
-        final String[] array = list.get(0);
-        final CoreProtectAPI.ParseResult parseResult = api.parseResult(array);
-
-        if (parseResult.getPlayer().isEmpty() || parseResult.getPlayer().startsWith("#") || parseResult.isRolledBack()) {
-            return false;
-        }
-        return parseResult.getActionId() != 0;
-    }
-
     @Override
     public boolean isPlayerPlaced(final Location location) {
         final BlockState block = Locator.getBlockState(location);
         if (block == null) {
             return false;
         }
-        return isPlayerPlaced(block);
+        return compat.isPlayerPlaced(block);
     }
 
 }

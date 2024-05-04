@@ -15,7 +15,7 @@ import com.syntaxphoenix.spigot.smoothtimber.utilities.locate.Locator;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginPackage;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.gen.MCVersion;
 
-public class CoreProtect extends CompatibilityAddon {
+public class CoreProtectAddon extends CompatibilityAddon {
 
     private LocationResolver resolver;
     private Listener chopListener;
@@ -26,11 +26,9 @@ public class CoreProtect extends CompatibilityAddon {
 
     @Override
     public void onEnable(final PluginPackage pluginPackage, final SmoothTimber smoothTimber) throws Exception {
-        if (resolver != null) {
+        if (compat != null) {
             return;
         }
-        resolver = new CoreProtectResolver(service = Executors.newCachedThreadPool(), pluginPackage.getPlugin());
-        Locator.setLocationResolver(resolver);
         switch (MCVersion.getCoreVersion()) {
         case v1_8x:
         case v1_9x:
@@ -46,12 +44,17 @@ public class CoreProtect extends CompatibilityAddon {
         default:
             return;
         }
+        resolver = new CoreProtectResolver(service = Executors.newCachedThreadPool(), compat);
+        Locator.setLocationResolver(resolver);
         Bukkit.getPluginManager().registerEvents(chopListener = new CoreProtectChopListener(compat), smoothTimber);
         Bukkit.getPluginManager().registerEvents(growListener = new CoreProtectGrowListener(compat), smoothTimber);
     }
 
     @Override
     public void onDisable(final SmoothTimber smoothTimber) throws Exception {
+        if (compat != null) {
+            compat = null;
+        }
         if (resolver != null) {
             resolver = null;
             Locator.setLocationResolver(null);
