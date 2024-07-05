@@ -31,6 +31,10 @@ body:
         - "Java 16"
         - "Java 17"
         - "Java 18"
+        - "Java 19"
+        - "Java 20"
+        - "Java 21"
+        - "Java 22"
     validations:
       required: false
   - type: input
