@@ -28,9 +28,9 @@ public class McMmo extends CompatibilityAddon {
     private Listener createChopListener(PluginPackage pluginPackage) {
         try {
             WoodcuttingManager.class.getMethod("processBonusDropCheck", BlockState.class);
-            return new McMmoChopListener_v1();
-        } catch (NoSuchMethodException | RuntimeException e) {
             return new McMmoChopListener_v2(pluginPackage.getPlugin());
+        } catch (NoSuchMethodException | RuntimeException e) {
+            return new McMmoChopListener_v1();
         }
         
     }
