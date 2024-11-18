@@ -40,7 +40,7 @@ public class BlockBreakListener implements Listener {
             return;
         }
         final VersionChanger change = PluginUtils.CHANGER;
-        if (!change.isWoodBlock(Locator.getBlockState(event.getBlock()))) {
+        if (!change.isWoodBlock(event.getBlock().getState())) {
             return;
         }
 

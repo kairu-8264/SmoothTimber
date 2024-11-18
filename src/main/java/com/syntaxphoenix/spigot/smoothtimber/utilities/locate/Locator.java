@@ -7,7 +7,6 @@ import java.util.Queue;
 import java.util.function.Function;
 
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
@@ -58,16 +57,6 @@ public abstract class Locator {
 
     public static BlockState getBlockState(final Location location) {
         return BLOCK_DETECTOR.apply(location);
-    }
-
-    public static BlockState getBlockState(final Block block) {
-        Platform platform = Platform.getPlatform();
-        if (platform.isRegional()) {
-            ObjectTask<BlockState> task = new ObjectTask<>(() -> block.getState());
-            Platform.getPlatform().regionalTask(block.getLocation(), task);
-            return task.get();
-        }
-        return block.getState();
     }
 
     public static void locateWood(final Location breakPoint, final List<Location> output, final int limit) {

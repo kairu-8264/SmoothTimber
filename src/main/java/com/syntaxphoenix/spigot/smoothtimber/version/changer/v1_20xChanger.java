@@ -31,6 +31,7 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
     "1.21.0",
     "1.21.1",
     "1.21.2",
+    "1.21.3",
 })
 public final class v1_20xChanger implements VersionChanger {
 
