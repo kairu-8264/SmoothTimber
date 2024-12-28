@@ -1,5 +1,11 @@
 package com.syntaxphoenix.spigot.smoothtimber.version.changer;
 
+import com.syntaxphoenix.spigot.smoothtimber.annotation.SupportedVersions;
+import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
+import com.syntaxphoenix.spigot.smoothtimber.utilities.Lists;
+import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
+import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
+import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -13,23 +19,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.syntaxphoenix.spigot.smoothtimber.annotation.SupportedVersions;
-import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
-import com.syntaxphoenix.spigot.smoothtimber.utilities.Lists;
-import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
-import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
-import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
-
 @SupportedVersions({
-    "1.20",
-    "1.20.1",
-    "1.20.2",
-    "1.20.3",
-    "1.20.4",
-    "1.20.5",
-    "1.20.6"
+    "1.21.0",
+    "1.21.1",
+    "1.21.2",
+    "1.21.3",
+    "1.21.4",
 })
-public final class v1_20xChanger implements VersionChanger {
+public final class v1_21xChanger implements VersionChanger {
 
     @Override
     public boolean hasCuttingItemInHand(final Player player) {
@@ -170,6 +167,7 @@ public final class v1_20xChanger implements VersionChanger {
         case WARPED:
         case MANGROVE:
         case CHERRY:
+        case PALEOAK:
         case OTHER:
             return true;
         default:
@@ -251,6 +249,12 @@ public final class v1_20xChanger implements VersionChanger {
         case STRIPPED_CHERRY_LOG:
         case STRIPPED_CHERRY_WOOD:
             return WoodType.CHERRY;
+        case PALE_OAK_LOG:
+        case PALE_OAK_WOOD:
+        case PALE_OAK_FENCE:
+        case STRIPPED_PALE_OAK_LOG:
+        case STRIPPED_PALE_OAK_WOOD:
+            return WoodType.PALEOAK;
         default:
             return WoodType.OTHER;
         }
